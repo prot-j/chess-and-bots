@@ -252,6 +252,8 @@ while True:
                     posib = pieza.posib()
                     if posib != [] and posib is not None:
                         posib.insert(0, [fila, columna])
+                        
+                    
             else:
                 print(f"Clic en casilla del tablero: ({fila}, {columna})")
                 posib = []

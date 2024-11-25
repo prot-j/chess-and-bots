@@ -215,7 +215,6 @@ for i in range(8):
     
 def pieza_aleatoria(turno):
     #escoger una de las piezas
-    print("aqui")
     posible2 = None    
     while posible2 is None:
         for i in range(0,8):
@@ -232,7 +231,6 @@ def pieza_aleatoria(turno):
                                 posible2 = posible
                             
         if posible2 is None:
-            print("aqui2")
             i = random.randint(0,7)
             j = random.randint(0,7)
             if tablero[i][j] != None:
