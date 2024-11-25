@@ -213,15 +213,37 @@ for i in range(8):
     
 def pieza_aleatoria(turno):
     #escoger una de las piezas
+    print("aqui")
     posible2 = None    
-    while posible2 == None:
-        i = random.randint(0,7)
-        j = random.randint(0,7)
-        if tablero[i][j] != None:
-            posible = tablero[i][j]
-            if posible.color == turno:
-                posible2 = posible
-                return posible2
+    while posible2 is None:
+        for i in range(0,8):
+            for j in range(0,8):
+                posible = tablero[i][j]
+                if posible != None:
+                    posibilidades = posible.posib()
+                    for z in posibilidades:
+                        if tablero.es_ocupado(z[0],z[1]):
+                            y = tablero.es_ocupado(z[0],z[1])
+                            if y.color != turno and posible.color == turno:
+                                print(posible.tipo + " come " + y.tipo)
+                                mov = [z[0],z[1]]
+                                posible2 = posible
+                            
+        if posible2 is None:
+            print("aqui2")
+            i = random.randint(0,7)
+            j = random.randint(0,7)
+            if tablero[i][j] != None:
+                posible = tablero[i][j]
+                if posible.color == turno:
+                    posibilidades = posible.posib()
+                    if posibilidades != []:
+                        mov = random.choice(posibilidades)
+                        posible2 = posible
+
+                
+    return posible2, mov
+            
 
 posib = []
 
@@ -234,13 +256,12 @@ while fin == False:
             pygame.quit()
             sys.exit()
 
-    pieza_x = pieza_aleatoria(turno)
+    pieza_x,movimiento = pieza_aleatoria(turno)
     posib = pieza_x.posib()
 
     if posib != [] and posib is not None:
         posib.insert(0, [pieza_x.fila, pieza_x.columna])
         coordenadas = list()
-        movimiento = random.choice(posib)
         for i in posib[0]:
             coordenadas.append(i)
         for i in posib[1:]:
@@ -303,4 +324,4 @@ while fin == False:
         sys.exit()
 
     pygame.display.flip()
-    clock.tick(100) 
+    clock.tick(3) 
